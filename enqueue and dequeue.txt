@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define capacity 4
+
+int queue[capacity];
+int front = 0, Rear = -1, totalItem = 0;
+
+bool isFull(){
+	if(totalItem == capacity){
+		return true;
+	}
+	return false;
+}
+
+bool isEmpty(){
+	if(totalItem == 0){
+		return true;
+	}
+	return false;
+}
+
+void enqueue(int item){
+	if(isFull()){
+		printf("Queue is full. \n");
+		return;
+	}
+	else{
+		Rear = (Rear + 1) % capacity;
+		queue[Rear] = item;
+		totalItem++;
+		printf("enqueue : %d \n",item);
+	}
+}
+
+int dequeue(){
+	if(isEmpty()){
+		printf("Queue is empty. \n");
+		return -1;
+	}
+	else{
+		int frontItem = queue[front];
+		queue[front] = 0;
+		front = (front + 1) % capacity;
+		totalItem = totalItem - 1;
+		printf("Dequeue : %d \n",frontItem);
+	}
+}
+
+int array(){
+	for(int i=0; i<capacity; i++){
+		printf("%d ",queue[i]);
+	}
+}
+
+int main(){
+	
+	enqueue(33);
+	enqueue(3);
+	enqueue(30);
+	enqueue(22);
+	enqueue(99);
+	dequeue();
+	enqueue(10);
+	array();
+	
+	return 0;
+}
